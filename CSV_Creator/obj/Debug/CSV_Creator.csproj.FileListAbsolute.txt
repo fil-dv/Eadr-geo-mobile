@@ -1,0 +1,17 @@
+D:\Дима\!Шаг\EADR\CSV_Creator\bin\Debug\CSV_Creator.exe.config
+D:\Дима\!Шаг\EADR\CSV_Creator\bin\Debug\CSV_Creator.exe
+D:\Дима\!Шаг\EADR\CSV_Creator\bin\Debug\CSV_Creator.pdb
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.csprojResolveAssemblyReference.cache
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\Interop.ExcelAdaptorLib.dll
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\Interop.ExcelClientPkgLib.dll
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.csproj.ResolveComReference.cache
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\MainWindow.g.cs
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\App.g.cs
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator_MarkupCompile.cache
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator_MarkupCompile.lref
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\MainWindow.baml
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.g.resources
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.Properties.Resources.resources
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.csproj.GenerateResource.Cache
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.exe
+D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.pdb
