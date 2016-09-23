@@ -1,0 +1,4 @@
+Mobile.MainActivity, Mobile;md558e1cfddb0bdf24123b5836e6a8a1625.MainActivity
+Mobile.MainActivity, Mobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md558e1cfddb0bdf24123b5836e6a8a1625.MainActivity
+Mobile.MainActivity;md558e1cfddb0bdf24123b5836e6a8a1625.MainActivity
+mobile.MainActivity;md558e1cfddb0bdf24123b5836e6a8a1625.MainActivity
