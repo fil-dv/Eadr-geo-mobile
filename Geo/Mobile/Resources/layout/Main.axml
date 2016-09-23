@@ -3,12 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:background="#ffffff">
     <TextView
         android:layout_marginTop="30dp"
         android:id="@+id/tw_logIn"
         android:gravity="center_horizontal"
         android:textSize="21sp"
+        android:textColor="#333333"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tw_LogInText" />
@@ -19,6 +21,7 @@
         android:id="@+id/etxt_logIn"
         android:gravity="center_horizontal"
         android:textSize="21sp"
+        android:textColor="#333333"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text" />
@@ -27,6 +30,7 @@
         android:id="@+id/tw_password"
         android:gravity="center_horizontal"
         android:textSize="21sp"
+        android:textColor="#333333"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tw_PassText" />
@@ -37,6 +41,7 @@
         android:layout_marginLeft="21dp"
         android:layout_marginRight="21dp"
         android:textSize="21sp"
+        android:textColor="#333333"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:password="true"
@@ -47,5 +52,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="22sp"
+        android:textColor="#333333"
+        android:background="#ffffff"
         android:text="@string/txt_buttonLogIn" />
+    <TextView
+        android:layout_marginTop="50dp"
+        android:id="@+id/tw_isInetOk"
+        android:gravity="center_horizontal"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tw_isInet" />
 </LinearLayout>

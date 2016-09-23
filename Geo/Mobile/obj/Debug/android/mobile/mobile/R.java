@@ -18,6 +18,7 @@ public final class R {
         public static final int btn_logIn=0x7f050004;
         public static final int etxt_logIn=0x7f050001;
         public static final int etxt_password=0x7f050003;
+        public static final int tw_isInetOk=0x7f050005;
         public static final int tw_logIn=0x7f050000;
         public static final int tw_password=0x7f050002;
     }
@@ -25,9 +26,10 @@ public final class R {
         public static final int main=0x7f030000;
     }
     public static final class string {
-        public static final int ApplicationName=0x7f040003;
+        public static final int ApplicationName=0x7f040004;
         public static final int tw_LogInText=0x7f040000;
         public static final int tw_PassText=0x7f040001;
+        public static final int tw_isInet=0x7f040003;
         public static final int txt_buttonLogIn=0x7f040002;
     }
 }

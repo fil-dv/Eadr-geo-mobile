@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
+
 namespace Mobile
 {
     [Activity(Label = " ", MainLauncher = true, Icon = "@drawable/logo")]
@@ -14,6 +15,7 @@ namespace Mobile
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            //SetBackgroundColor(Color.White);
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
