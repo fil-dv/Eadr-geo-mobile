@@ -36,5 +36,7 @@ D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Xml.dll.mdb
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Xml.Linq.dll.mdb
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\res\drawable\icon.bmp
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\res\drawable\logo.bmp
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\res\drawable\buttonsubmit.xml
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\res\values\style.xml
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\Mobile.dll.mdb
 D:\Dima\!Шаг\EADR\Geo\Mobile\bin\Debug\Mobile.dll.mdb
