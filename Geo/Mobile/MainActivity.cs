@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.OS;
 using System.Threading.Tasks;
 using Mobile.Assets;
+using Android.Graphics;
 
 namespace Mobile
 {
@@ -20,6 +21,7 @@ namespace Mobile
         bool _isInet;
         bool _flag;
         AsyncTimer timer;
+        int _counter = 0;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -33,7 +35,8 @@ namespace Mobile
             _txtPass.AfterTextChanged += TxtPass_AfterTextChanged;
             if (!_isInet)
             {
-                timer = new AsyncTimer(OnTimer, 0, 1000);
+                _btnSubmit.SetTextColor(Color.ParseColor("#DCDCDC")); 
+                timer = new AsyncTimer(OnTimer, 0, 700);
             }
             else
             {
@@ -52,30 +55,22 @@ namespace Mobile
 
                 if (_flag)
                 {
-                    _textInet.Text = "Click Start";
+                    _textInet.Text = "Нет подключения к интернету";
                 }
                 else
                 {
                     _textInet.Text = "";
                 }
                 _flag = !_flag;
-            });
-
-
-            
+                _counter++;
+            });            
         }                    
-           
-        
-
-        //async Task<bool> FlashingText(bool flag)
-        //{            
-        //    return !flag;            
-        //}
 
 
         bool IsInetOk()
         {
-            return false;
+            if (_counter == 25) return true;
+            else return false;
         }
 
         void InitControls()
@@ -102,10 +97,12 @@ namespace Mobile
             if (_txtLogin.Text.Length > 0 && _txtPass.Text.Length > 0)
             {
                 _btnSubmit.Enabled = true;
+                _btnSubmit.SetTextColor(Color.ParseColor("#000000"));
             }
             else
             {
                 _btnSubmit.Enabled = false;
+                _btnSubmit.SetTextColor(Color.ParseColor("#A9A9A9"));
             }
         }
 
