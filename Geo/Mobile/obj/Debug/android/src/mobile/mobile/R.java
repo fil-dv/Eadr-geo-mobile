@@ -27,10 +27,11 @@ public final class R {
         public static final int main=0x7f030000;
     }
     public static final class string {
-        public static final int ApplicationName=0x7f040004;
+        /**   <string name="tw_isInet">Нет подключения к интернету</string>
+         */
+        public static final int ApplicationName=0x7f040003;
         public static final int tw_LogInText=0x7f040000;
         public static final int tw_PassText=0x7f040001;
-        public static final int tw_isInet=0x7f040003;
         public static final int txt_buttonLogIn=0x7f040002;
     }
     public static final class style {

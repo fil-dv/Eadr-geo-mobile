@@ -8,6 +8,7 @@ using Android.OS;
 using System.Threading.Tasks;
 using Mobile.Assets;
 using Android.Graphics;
+using Android.Net;
 
 namespace Mobile
 {
@@ -15,71 +16,84 @@ namespace Mobile
     public class MainActivity : Activity
     {
         Button _btnSubmit;
-        EditText _txtLogin;
-        EditText _txtPass;
+        TextView _twLogin;
+        TextView _twPass;
+        EditText _etxtLogin;
+        EditText _etxtPass;
         TextView _textInet;
-        bool _isInet;
         bool _flag;
         AsyncTimer timer;
-        int _counter = 0;
+        ConnectivityManager _connectivityManager;
+        NetworkInfo _activeConnection;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
             InitControls();
-            _isInet = IsInetOk();
             _flag = false;
             _btnSubmit.Click += BtnSubmit_Click;
-            _txtLogin.AfterTextChanged += TxtLogin_AfterTextChanged;
-            _txtPass.AfterTextChanged += TxtPass_AfterTextChanged;
-            if (!_isInet)
-            {
-                _btnSubmit.SetTextColor(Color.ParseColor("#DCDCDC")); 
+            _etxtLogin.AfterTextChanged += TxtLogin_AfterTextChanged;
+            _etxtPass.AfterTextChanged += TxtPass_AfterTextChanged;
+            if (!IsOnline())
+            {                
                 timer = new AsyncTimer(OnTimer, 0, 700);
-            }
-            else
-            {
-                timer.Cancel();
             }
         }
 
         private async Task OnTimer()
-        {
-            if (_isInet)
-            {
-                timer.Cancel();
-            }
+        {           
 
             RunOnUiThread(() => {
 
-                if (_flag)
-                {
-                    _textInet.Text = "Нет подключения к интернету";
+                bool onLine = IsOnline();
+                SetControlsState(onLine);
+                if (onLine)
+                {                    
+                    _textInet.Text = "";
+                    if (timer != null)
+                    {
+                        timer.Cancel();
+                    }
                 }
                 else
                 {
-                    _textInet.Text = "";
-                }
-                _flag = !_flag;
-                _counter++;
+                    Flash();
+                }                
             });            
-        }                    
+        }
 
-
-        bool IsInetOk()
+        void Flash()
         {
-            if (_counter == 25) return true;
-            else return false;
+            if (_flag)
+            {
+                _textInet.Text = "Нет подключения к интернету";
+            }
+            else
+            {
+                _textInet.Text = "";
+            }
+            _flag = !_flag;
+        }
+
+        bool IsOnline()
+        {
+            _connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+            _activeConnection = _connectivityManager.ActiveNetworkInfo;
+            bool isOnline = (_activeConnection != null) && _activeConnection.IsConnected;
+            //Toast.MakeText(this, isOnline ? "есть" : "нет", ToastLength.Short).Show();
+            return isOnline;            
         }
 
         void InitControls()
         {
             _btnSubmit = FindViewById<Button>(Resource.Id.btn_logIn);
             _btnSubmit.Enabled = false;
-            _txtLogin = FindViewById<EditText>(Resource.Id.etxt_logIn);
-            _txtPass = FindViewById<EditText>(Resource.Id.etxt_password);
+            _etxtLogin = FindViewById<EditText>(Resource.Id.etxt_logIn);
+            _etxtPass = FindViewById<EditText>(Resource.Id.etxt_password);
             _textInet = FindViewById<TextView>(Resource.Id.tw_isInetOk);
+            _twLogin = FindViewById<TextView>(Resource.Id.tw_logIn);
+            _twPass = FindViewById<TextView>(Resource.Id.tw_password);
         }
 
         private void TxtPass_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
@@ -94,7 +108,7 @@ namespace Mobile
 
         void SetBtnEnable()
         {
-            if (_txtLogin.Text.Length > 0 && _txtPass.Text.Length > 0)
+            if (_etxtLogin.Text.Length > 0 && _etxtPass.Text.Length > 0)
             {
                 _btnSubmit.Enabled = true;
                 _btnSubmit.SetTextColor(Color.ParseColor("#000000"));
@@ -106,6 +120,25 @@ namespace Mobile
             }
         }
 
+        void SetControlsState(bool state)
+        {
+            if (state)
+            {
+                _etxtLogin.Visibility = ViewStates.Visible;
+                _etxtPass.Visibility = ViewStates.Visible;
+                _twLogin.SetTextColor(Color.ParseColor("#000000"));
+                _twPass.SetTextColor(Color.ParseColor("#000000"));
+                _btnSubmit.SetTextColor(Color.ParseColor("#000000"));
+            }
+            else
+            {
+                _etxtLogin.Visibility = ViewStates.Invisible;
+                _etxtPass.Visibility = ViewStates.Invisible;
+                _twLogin.SetTextColor(Color.ParseColor("#DCDCDC"));
+                _twPass.SetTextColor(Color.ParseColor("#DCDCDC"));
+                _btnSubmit.SetTextColor(Color.ParseColor("#DCDCDC"));
+            }
+        }
 
         private void BtnSubmit_Click(object sender, EventArgs e)
         {

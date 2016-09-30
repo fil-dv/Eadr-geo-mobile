@@ -1,1 +1,1 @@
-<resources><string name="tw_LogInText">Введите логин:</string><string name="tw_PassText">Введите пароль:</string><string name="txt_buttonLogIn">Готово</string><string name="tw_isInet">Нет подключения к интернету</string><string name="ApplicationName">EADR Mobile</string></resources>
+<resources><string name="tw_LogInText">Введите логин:</string><string name="tw_PassText">Введите пароль:</string><string name="txt_buttonLogIn">Готово</string><!--  <string name="tw_isInet">Нет подключения к интернету</string>--><string name="ApplicationName">EADR Mobile</string></resources>
