@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using Mobile.Assets;
 using Android.Graphics;
 using Android.Net;
+using System.Net;
+using System.IO;
+using RestSharp;
+//using RestSharp;
 
 namespace Mobile
 {
@@ -25,6 +29,7 @@ namespace Mobile
         AsyncTimer timer;
         ConnectivityManager _connectivityManager;
         NetworkInfo _activeConnection;
+        NetworkInfo wifiInfo;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -41,9 +46,9 @@ namespace Mobile
             }
         }
 
-        private async Task OnTimer()
-        {           
 
+        private async Task OnTimer()
+        { 
             RunOnUiThread(() => {
 
                 bool onLine = IsOnline();
@@ -81,8 +86,29 @@ namespace Mobile
             _connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
             _activeConnection = _connectivityManager.ActiveNetworkInfo;
             bool isOnline = (_activeConnection != null) && _activeConnection.IsConnected;
-            //Toast.MakeText(this, isOnline ? "есть" : "нет", ToastLength.Short).Show();
-            return isOnline;            
+
+            // for return true if device uses wifi. But variable isOnline is true in any options of connect (mobile or wifi)
+
+            //if (isOnline)
+            //{
+            //    return isOnline;
+            //}
+            //else
+            //{
+            //    wifiInfo = _connectivityManager.GetNetworkInfo(ConnectivityType.Wifi);
+            //    if (wifiInfo.IsConnected)
+            //    {
+            //        Toast.MakeText(this, "wifi есть", ToastLength.Short).Show();
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        Toast.MakeText(this, "wifi нет", ToastLength.Short).Show();
+            //        return false;
+            //    }
+            //}              
+
+            return isOnline;   
         }
 
         void InitControls()
@@ -142,7 +168,17 @@ namespace Mobile
 
         private void BtnSubmit_Click(object sender, EventArgs e)
         {
-            Toast.MakeText(this, "Не готово...", ToastLength.Long).Show();
+            var client = new RestClient();
+           // client = true;
+
+            //var client = new RestClient("http://");
+            //var request = new RestRequest(String.Format("x", "777"));
+
+            //client.ExecuteAsync(request, response => {
+            //    Console.WriteLine(response.Content);
+            //});
+
+            //Toast.MakeText(this, "Не готово...", ToastLength.Long).Show();
         }
     }
 }

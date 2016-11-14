@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Paths>
   <Jars></Jars>
-  <ResolvedResourceDirectories />
-  <ResolvedAssetDirectories />
+  <ResolvedResourceDirectories>
+    <ResolvedResourceDirectory>D:\Dima\!╨и╨░╨│\EADR\Geo\Mobile\obj\Debug\__library_projects__\RestSharp\library_project_imports\res</ResolvedResourceDirectory>
+  </ResolvedResourceDirectories>
+  <ResolvedAssetDirectories>
+    <ResolvedAssetDirectory>D:\Dima\!╨и╨░╨│\EADR\Geo\Mobile\obj\Debug\__library_projects__\RestSharp\library_project_imports\assets</ResolvedAssetDirectory>
+  </ResolvedAssetDirectories>
   <ResolvedEnvironmentFiles />
-  <ResolvedResourceDirectoryStamps />
+  <ResolvedResourceDirectoryStamps>
+    <ResolvedResourceDirectoryStamp>D:\Dima\!╨и╨░╨│\EADR\Geo\Mobile\obj\Debug\__library_projects__\RestSharp.stamp</ResolvedResourceDirectoryStamp>
+  </ResolvedResourceDirectoryStamps>
 </Paths>

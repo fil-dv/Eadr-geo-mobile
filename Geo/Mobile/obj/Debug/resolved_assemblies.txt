@@ -6,6 +6,7 @@ D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Core.dll
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.dll
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Xml.dll
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Xml.Linq.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\Newtonsoft.Json.dll
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Threading.dll
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Runtime.dll
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.ComponentModel.Composition.dll
@@ -20,3 +21,17 @@ D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Reflection.Exten
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Runtime.Serialization.dll
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.ServiceModel.Internals.dll
 D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Net.Http.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.IO.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Threading.Tasks.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Xml.XDocument.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Globalization.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Runtime.Serialization.Primitives.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Linq.Expressions.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Dynamic.Runtime.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.ObjectModel.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Text.RegularExpressions.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Xml.ReaderWriter.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Text.Encoding.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\System.Text.Encoding.Extensions.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\Microsoft.CSharp.dll
+D:\Dima\!Шаг\EADR\Geo\Mobile\obj\Debug\android\assets\Mono.CSharp.dll
