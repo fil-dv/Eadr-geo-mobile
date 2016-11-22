@@ -30,6 +30,7 @@ namespace CSV_Creator
         bool _timer = false;
         private bool _isAnalyzing = false;
         private Thread _thread;
+        string _path;
 
 
         public MainWindow()
@@ -38,7 +39,7 @@ namespace CSV_Creator
             this.Loaded += MainWindow_Loaded;            
         }
 
-        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Tick += DispatcherTimer_Tick;
@@ -70,32 +71,32 @@ namespace CSV_Creator
                 
                 if (browsefile == true)
                 {
+                    _path = openfile.FileName;
+                    string[] arr = _path.Split('\\');
+                    txtFilePath.Text = arr[(arr.Length - 1)];
+
                     Dispatcher.BeginInvoke(new ThreadStart(delegate
                     {
                         //stopAnalyze();
-                        txtFilePath.Text = openfile.FileName;
+                        
                         dispatcherTimer.Start();
                         btnOpen.Content = "Stop loading";
-
                     }));
 
                     
                     
 
-                    _thread = new Thread(LoadFile);
-                    _thread.Start();
+                   // _thread = new Thread(LoadFile);
+                   // _thread.Start();
 
 
                     Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
-                    //Static File From Base Path...........
-                    //Microsoft.Office.Interop.Excel.Workbook excelBook = excelApp.Workbooks.Open(AppDomain.CurrentDomain.BaseDirectory + "TestExcel.xlsx", 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-                    //Dynamic File Using Uploader...........
-
+                   
 
 
                     //????????? Why so many parameters???
                     //Microsoft.Office.Interop.Excel.Workbook excelBook = excelApp.Workbooks.Open(txtFilePath.Text.ToString(), 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-                    Microsoft.Office.Interop.Excel.Workbook excelBook = excelApp.Workbooks.Open(txtFilePath.Text.ToString());
+                    Microsoft.Office.Interop.Excel.Workbook excelBook = excelApp.Workbooks.Open(_path);
                     Microsoft.Office.Interop.Excel.Worksheet excelSheet = (Microsoft.Office.Interop.Excel.Worksheet)excelBook.Worksheets.get_Item(1); ;
                     Microsoft.Office.Interop.Excel.Range excelRange = excelSheet.UsedRange;
 
@@ -126,7 +127,7 @@ namespace CSV_Creator
                     }
 
                     /////
-                    int countOfRows = 5;
+                    int countOfRows = 3;
                     /////
                     if (excelRange.Rows.Count < countOfRows) countOfRows = excelRange.Rows.Count;
 
@@ -185,11 +186,6 @@ namespace CSV_Creator
         void LoadFile()
         {
             _isAnalyzing = true;
-           
-
-            
-            
-            
         }
 
 
