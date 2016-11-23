@@ -30,15 +30,14 @@
         {
             this.textBox_file_path = new System.Windows.Forms.TextBox();
             this.button_open = new System.Windows.Forms.Button();
-            this.dtGrid = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox_first = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dtGrid)).BeginInit();
+            this.listBox_xls = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // textBox_file_path
@@ -60,22 +59,11 @@
             this.button_open.UseVisualStyleBackColor = true;
             this.button_open.Click += new System.EventHandler(this.button_open_Click);
             // 
-            // dtGrid
-            // 
-            this.dtGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGrid.Location = new System.Drawing.Point(36, 69);
-            this.dtGrid.Name = "dtGrid";
-            this.dtGrid.Size = new System.Drawing.Size(351, 414);
-            this.dtGrid.TabIndex = 2;
-            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(409, 105);
+            this.button1.Location = new System.Drawing.Point(416, 105);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(31, 347);
             this.button1.TabIndex = 3;
@@ -93,16 +81,16 @@
             this.button2.Text = "<-";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // listBox_first
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.listBox_first.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(462, 72);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 407);
-            this.listBox1.TabIndex = 5;
+            this.listBox_first.FormattingEnabled = true;
+            this.listBox_first.Location = new System.Drawing.Point(462, 72);
+            this.listBox_first.Name = "listBox_first";
+            this.listBox_first.Size = new System.Drawing.Size(120, 407);
+            this.listBox_first.TabIndex = 5;
             // 
             // listBox2
             // 
@@ -114,7 +102,6 @@
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(120, 407);
             this.listBox2.TabIndex = 6;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // listBox3
             // 
@@ -147,24 +134,32 @@
             this.button4.Text = "button4";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // listBox_xls
+            // 
+            this.listBox_xls.FormattingEnabled = true;
+            this.listBox_xls.Location = new System.Drawing.Point(36, 72);
+            this.listBox_xls.Name = "listBox_xls";
+            this.listBox_xls.Size = new System.Drawing.Size(361, 407);
+            this.listBox_xls.TabIndex = 10;
+            this.listBox_xls.SelectedIndexChanged += new System.EventHandler(this.listBox_xls_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(987, 525);
+            this.Controls.Add(this.listBox_xls);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.listBox3);
             this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBox_first);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.dtGrid);
             this.Controls.Add(this.button_open);
             this.Controls.Add(this.textBox_file_path);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dtGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,14 +169,14 @@
 
         private System.Windows.Forms.TextBox textBox_file_path;
         private System.Windows.Forms.Button button_open;
-        private System.Windows.Forms.DataGridView dtGrid;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBox_first;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ListBox listBox_xls;
     }
 }
 

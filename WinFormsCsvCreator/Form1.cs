@@ -15,6 +15,7 @@ namespace WinFormsCsvCreator
     {
         string _path;
         int _columnCount;
+        List<XlsString> _listStr = new List<XlsString>();
 
         public Form1()
         {
@@ -35,14 +36,7 @@ namespace WinFormsCsvCreator
             if (browsefile == DialogResult.OK)
             {
                 _path = openfile.FileName;
-                // string[] arr = _path.Split('\\');
-                textBox_file_path.Text = _path; // arr[(arr.Length - 1)];
-
-
-                //Dispatcher.BeginInvoke(new ThreadStart(delegate
-                //{
-                //    dispatcherTimer.Start();
-                //}));
+                textBox_file_path.Text = _path; 
 
                 Action action = () =>
                 {
@@ -61,7 +55,7 @@ namespace WinFormsCsvCreator
 
                     int countToName = 0; // will use to create new name of collun if sach name is exist already
 
-                    DataTable dt = new DataTable();
+                    _listStr.Capacity = _columnCount;
 
                     for (colCnt = 1; colCnt <= _columnCount; colCnt++)
                     {
@@ -69,12 +63,12 @@ namespace WinFormsCsvCreator
                         strColumn = (string)(excelRange.Cells[1, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
                         try
                         {
-                            dt.Columns.Add(strColumn, typeof(string));
+                            _listStr.Add(new XlsString { Number = colCnt, XlsStr = strColumn });
                         }
                         catch (DuplicateNameException)
                         {
                             strColumn = strColumn + "_" + (++countToName).ToString();
-                            dt.Columns.Add(strColumn, typeof(string));
+                            _listStr.Add(new XlsString { Number = colCnt, XlsStr = strColumn });
                         }
                     }
 
@@ -87,37 +81,23 @@ namespace WinFormsCsvCreator
 
                     for (rowCnt = 2; rowCnt <= countOfRows; rowCnt++)
                     {
-                        string strData = "";
                         for (colCnt = 1; colCnt <= excelRange.Columns.Count; colCnt++)
                         {
+                            XlsString str = _listStr.Where<XlsString>(n => n.Number == colCnt).First();
                             try
                             {
                                 strCellData = (string)(excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
-                                //if(strCellData == "")
-                                strData += strCellData + "|";
+                                str.XlsStr += ("  |  " + strCellData);
                             }
                             catch (Exception)
                             {
                                 douCellData = (excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
-                                strData += douCellData.ToString() + "|";
-                            }
-                        }
-                        strData = strData.Remove(strData.Length - 1, 1);
-                        dt.Rows.Add(strData.Split('|'));
+                                str.XlsStr += ("  |  " + strCellData);
+                            }                            
+                        }                        
                     }
 
-                    dtGrid.DataSource = dt.DefaultView;
-                    //var cols = dtGrid.Columns;
-                    //List<DataGridLength> widts = new List<DataGridLength>();
-                    //foreach (var item in cols)
-                    //{
-                    //    widts.Add(item.Width);
-
-                    //}
-
-
-                    //dtGrid.Columns.Add();
-                    //dtGrid.Items.Add(new DataItem { Column1 = "b.1", Column2 = "b.2", Column3 = "b.3", Column4 = "b.4" });
+                    FillXslListBox();
 
                     try
                     {
@@ -127,38 +107,41 @@ namespace WinFormsCsvCreator
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
-                        //throw;
+                        throw;
                     }
-
-                    //_isAnalyzing = false;
-                    //dispatcherTimer.Stop();
-                    //btnOpen.Content = "Select excel file";
-
                 };
-                Invoke(action);
-
-                List<string> strList = new List<string>();
-                strList.Add("111");
-                strList.Add("222");
-
-                List<ComboBox> comboList = new List<ComboBox>();
-
-                for (int i = 0; i < _columnCount; ++i)
-                {
-                    ComboBox combo = new ComboBox();
-                    foreach (var item in strList)
-                    {
-                        combo.Items.Add(item);
-                    }
-                    comboList.Add(combo);
-                }
-
+                Invoke(action); 
             }
         }
 
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        void FillXslListBox()
         {
+            foreach (var item in _listStr)
+            {
+                listBox_xls.Items.Add(String.Format("{0}) {1}", item.Number, item.XlsStr));
+            }
+        }
 
+        private void listBox_xls_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            try
+            {
+                
+                string curStr = listBox_xls.SelectedItem.ToString();
+                string[] arr = curStr.Split(')');
+                int index = Convert.ToInt32(arr[0]);
+                XlsString item = _listStr.Where<XlsString>(c => c.Number == index).First();
+                _listStr.Remove(item);
+                listBox_xls.Items.Clear();
+                FillXslListBox();
+                listBox_first.Items.Add(curStr);
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message);
+                throw;
+            }
         }
     }
 }

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace WinFormsCsvCreator
 {
-    class XlsString
+    public class XlsString
     {
+        public string XlsStr { get; set; }
+        public int Number { get; set; }        
+
     }
 }
