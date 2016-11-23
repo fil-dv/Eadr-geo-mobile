@@ -16,7 +16,6 @@ D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.csproj.GenerateResour
 D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.exe
 D:\Дима\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.pdb
 D:\Dima\!Шаг\EADR\CSV_Creator\bin\Debug\CSV_Creator.exe.config
-D:\Dima\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.csproj.ResolveComReference.cache
 D:\Dima\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.exe
 D:\Dima\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.pdb
 D:\Dima\!Шаг\EADR\CSV_Creator\obj\Debug\CSV_Creator.csprojResolveAssemblyReference.cache

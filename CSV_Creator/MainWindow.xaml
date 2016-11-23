@@ -33,7 +33,16 @@
                     </Grid>
                 </Border>
                 <Label Name="txtLoading" Content="File is loading..." FontSize="15" FontWeight="Bold" Margin="15" HorizontalAlignment="Center" Visibility="Hidden"/>
-                <DataGrid AutoGenerateColumns="True" IsReadOnly="True" HorizontalAlignment="Center" Name="dtGrid" VerticalAlignment="Center" />
+                <DataGrid AutoGenerateColumns="True" IsReadOnly="True" HorizontalAlignment="Center" Name="dtGrid" VerticalAlignment="Center"/>
+                <DataGrid Height="77" AutoGenerateColumns="True" HorizontalAlignment="Center" Width="223" >
+                    <DataGridComboBoxColumn  x:Name="Gender" SelectedValueBinding="{Binding Gender, Mode=TwoWay}" DisplayMemberPath="{Binding Gender}" >
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="ItemsSource" Value="{Binding Path=Gender, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                    </DataGridComboBoxColumn>
+                </DataGrid>
             </StackPanel>
         </Border>
     </Grid>
