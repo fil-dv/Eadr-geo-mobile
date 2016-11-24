@@ -51,13 +51,13 @@ namespace WinFormsCsvCreator
                     string strCellData = "";
                     double douCellData;
                     int rowCnt = 0;
-                    int colCnt = 0;
+                   // int colCnt = 0;
 
                     int countToName = 0; // will use to create new name of collun if sach name is exist already
 
                     _listStr.Capacity = _columnCount;
 
-                    for (colCnt = 1; colCnt <= _columnCount; colCnt++)
+                    for (int colCnt = 1; colCnt <= _columnCount; colCnt++)
                     {
                         string strColumn = "";                        
                         XlsData xd = new XlsData();
@@ -83,17 +83,37 @@ namespace WinFormsCsvCreator
 
                     for (rowCnt = 2; rowCnt <= countOfRows; rowCnt++)
                     {
-                        for (colCnt = 1; colCnt <= excelRange.Columns.Count; colCnt++)
+                        for (int colCnt = 1; colCnt <= excelRange.Columns.Count; colCnt++)
                         {
                             XlsData xd = _listStr.Where<XlsData>(n => n.Number == colCnt).First();
                             try
                             {
-                                strCellData = (string)(excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;                                
+                                Type type = (excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value.GetType();
+                                if (type == typeof(DateTime))
+                                {
+                                    strCellData = (excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value.ToString("dd.MM.yyyy");
+                                }
+                                else
+                                {
+                                    strCellData = (string)(excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
+                                }
                             }
                             catch (Exception)
                             {
-                                douCellData = (excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
-                                strCellData = strCellData + "_" + (++countToName).ToString();                               
+                                var item = (excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value;
+                                if (item != null)
+                                {
+                                    douCellData = (excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
+                                    strCellData = douCellData.ToString();
+                                }
+                                else
+                                {
+                                    strCellData = "";
+                                }
+
+
+                                //strCellData = douCellData + "_" + (++countToName).ToString();                               
+                                
                             }
                             xd.ListStr.Add(strCellData);
                         }                        
