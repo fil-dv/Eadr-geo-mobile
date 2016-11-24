@@ -15,7 +15,7 @@ namespace WinFormsCsvCreator
     {
         string _path;
         int _columnCount;
-        List<XlsString> _listStr = new List<XlsString>();
+        List<XlsData> _listStr = new List<XlsData>();
 
         public Form1()
         {
@@ -59,17 +59,19 @@ namespace WinFormsCsvCreator
 
                     for (colCnt = 1; colCnt <= _columnCount; colCnt++)
                     {
-                        string strColumn = "";
-                        strColumn = (string)(excelRange.Cells[1, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
+                        string strColumn = "";                        
+                        XlsData xd = new XlsData();
+                        xd.Number = colCnt;
                         try
                         {
-                            _listStr.Add(new XlsString { Number = colCnt, XlsStr = strColumn });
+                            strColumn = (string)(excelRange.Cells[1, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;                            
                         }
                         catch (DuplicateNameException)
                         {
-                            strColumn = strColumn + "_" + (++countToName).ToString();
-                            _listStr.Add(new XlsString { Number = colCnt, XlsStr = strColumn });
+                            strColumn = strColumn + "_" + (++countToName).ToString();                            
                         }
+                        xd.ListStr.Add(strColumn);
+                        _listStr.Add(xd);
                     }
 
                     /////
@@ -83,17 +85,17 @@ namespace WinFormsCsvCreator
                     {
                         for (colCnt = 1; colCnt <= excelRange.Columns.Count; colCnt++)
                         {
-                            XlsString str = _listStr.Where<XlsString>(n => n.Number == colCnt).First();
+                            XlsData xd = _listStr.Where<XlsData>(n => n.Number == colCnt).First();
                             try
                             {
-                                strCellData = (string)(excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
-                                str.XlsStr += ("  |  " + strCellData);
+                                strCellData = (string)(excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;                                
                             }
                             catch (Exception)
                             {
                                 douCellData = (excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
-                                str.XlsStr += ("  |  " + strCellData);
-                            }                            
+                                strCellData = strCellData + "_" + (++countToName).ToString();                               
+                            }
+                            xd.ListStr.Add(strCellData);
                         }                        
                     }
 
@@ -118,7 +120,7 @@ namespace WinFormsCsvCreator
         {
             foreach (var item in _listStr)
             {
-                listBox_xls.Items.Add(String.Format("{0}) {1}", item.Number, item.XlsStr));
+                listBox_xls.Items.Add(String.Format("{0}) {1}", item.Number, item.ToString()));
             }
         }
 
@@ -131,7 +133,7 @@ namespace WinFormsCsvCreator
                 string curStr = listBox_xls.SelectedItem.ToString();
                 string[] arr = curStr.Split(')');
                 int index = Convert.ToInt32(arr[0]);
-                XlsString item = _listStr.Where<XlsString>(c => c.Number == index).First();
+                XlsData item = _listStr.Where<XlsData>(c => c.Number == index).First();
                 _listStr.Remove(item);
                 listBox_xls.Items.Clear();
                 FillXslListBox();
