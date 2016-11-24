@@ -23,6 +23,18 @@ namespace WinFormsCsvCreator
             //this.TopMost = true;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.WindowState = FormWindowState.Maximized;
+            InitTableColumns();
+        }
+
+        void InitTableColumns()
+        {
+            TableColumns table = new TableColumns();
+            table.ListTable.Sort((col1, col2) => col1.Str.CompareTo(col2.Str));
+            foreach (var item in table.ListTable)
+            {
+                listBox_db.Items.Add(item);
+                listBox_db.Enabled = false;
+            }
         }
 
         private void button_open_Click(object sender, EventArgs e)
@@ -110,10 +122,6 @@ namespace WinFormsCsvCreator
                                 {
                                     strCellData = "";
                                 }
-
-
-                                //strCellData = douCellData + "_" + (++countToName).ToString();                               
-                                
                             }
                             xd.ListStr.Add(strCellData);
                         }                        
@@ -132,7 +140,8 @@ namespace WinFormsCsvCreator
                         throw;
                     }
                 };
-                Invoke(action); 
+                Invoke(action);
+                listBox_db.Enabled = true;
             }
         }
 
@@ -165,5 +174,6 @@ namespace WinFormsCsvCreator
                 throw;
             }
         }
+
     }
 }
