@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -28,13 +29,53 @@ namespace WinFormsCsvCreator
 
         void InitTableColumns()
         {
-            TableColumns table = new TableColumns();
-            table.ListTable.Sort((col1, col2) => col1.Str.CompareTo(col2.Str));
+            List<string> fileList = FilesList();
+            List<string> tableNameList = new List<string>();
+            foreach (var item in fileList)
+            {
+                string[] arr = item.Split('\\');
+                string path = arr[arr.Length - 1];
+                string name = path.Substring(0, path.Length - 4);
+                tableNameList.Add(name);                                
+            }
+
+            InitComboBox(tableNameList);
+          // Thread.Sleep(100);
+            InitListBoxDB(comboBox_tables.SelectedItem.ToString());
+
+            
+        }
+
+        void InitListBoxDB(string nableName)
+        {
+            listBox_db.Items.Clear();
+            TableColumns table = new TableColumns(nableName);
+           // table.ListTable.Sort((col1, col2) => col1.Str.CompareTo(col2.Str)); // Sorting
             foreach (var item in table.ListTable)
             {
                 listBox_db.Items.Add(item);
                 listBox_db.Enabled = false;
             }
+        }
+
+        void InitComboBox(List<string> nameList)
+        {
+            foreach (var item in nameList)
+            {
+                comboBox_tables.Items.Add(item);
+            }
+            //if (File.Exists(@"..\..\TableColumns\import_clnt_example.txt"))
+            //{}
+            if (nameList.Contains("import_clnt_example"))
+            {
+                comboBox_tables.SelectedItem = "import_clnt_example";
+            }
+            
+        }
+
+        List<string> FilesList()
+        {
+            return Directory.GetFiles(@"..\..\TableColumns\").ToList();  // path to files directory             
         }
 
         private void button_open_Click(object sender, EventArgs e)
@@ -175,5 +216,9 @@ namespace WinFormsCsvCreator
             }
         }
 
+        private void comboBox_tables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InitListBoxDB(comboBox_tables.SelectedItem.ToString());
+        }
     }
 }

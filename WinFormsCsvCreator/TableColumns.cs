@@ -13,9 +13,11 @@ namespace WinFormsCsvCreator
         List<TableItem> _listTable;
         int _counter;
         public List<TableItem> ListTable { get { return _listTable; } set { _listTable = value; } }
+        string _fileName;
 
-        public TableColumns()
+        public TableColumns(string tableName)
         {
+            _fileName = @"..\..\TableColumns\" + tableName + ".txt";
             _listTable = new List<TableItem>();
             _counter = 0;
             InitList();
@@ -23,10 +25,10 @@ namespace WinFormsCsvCreator
 
         void InitList()
         {
-            if (File.Exists(@"..\..\TableColumns\import_clnt_example.txt"))
+            if (File.Exists(_fileName))
             {
                 _listTable.Clear();
-                string str = File.ReadAllText(@"..\..\TableColumns\import_clnt_example.txt");
+                string str = File.ReadAllText(_fileName);
                 string[] arr = str.Split(',');
                 foreach (var item in arr)
                 {
@@ -35,7 +37,7 @@ namespace WinFormsCsvCreator
             }
             else
             {
-                MessageBox.Show(@"Верните файл на место! TableColumns\import_clnt_example.txt");
+                MessageBox.Show(@"Верните файл на место! TableColumns\*.txt");
             }
         }        
     }
