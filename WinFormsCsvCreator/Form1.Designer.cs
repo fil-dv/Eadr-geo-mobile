@@ -49,6 +49,7 @@
             this.inputFileNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pathToResultFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +76,7 @@
             // button_xls_to_list
             // 
             this.button_xls_to_list.Enabled = false;
-            this.button_xls_to_list.Location = new System.Drawing.Point(416, 183);
+            this.button_xls_to_list.Location = new System.Drawing.Point(416, 172);
             this.button_xls_to_list.Name = "button_xls_to_list";
             this.button_xls_to_list.Size = new System.Drawing.Size(31, 125);
             this.button_xls_to_list.TabIndex = 3;
@@ -91,7 +92,7 @@
             this.listBox_first.FormattingEnabled = true;
             this.listBox_first.Location = new System.Drawing.Point(462, 114);
             this.listBox_first.Name = "listBox_first";
-            this.listBox_first.Size = new System.Drawing.Size(156, 368);
+            this.listBox_first.Size = new System.Drawing.Size(156, 394);
             this.listBox_first.TabIndex = 5;
             this.listBox_first.SelectedIndexChanged += new System.EventHandler(this.listBox_first_SelectedIndexChanged);
             // 
@@ -102,7 +103,7 @@
             this.listBox_second.FormattingEnabled = true;
             this.listBox_second.Location = new System.Drawing.Point(646, 114);
             this.listBox_second.Name = "listBox_second";
-            this.listBox_second.Size = new System.Drawing.Size(151, 368);
+            this.listBox_second.Size = new System.Drawing.Size(151, 394);
             this.listBox_second.TabIndex = 6;
             this.listBox_second.SelectedIndexChanged += new System.EventHandler(this.listBox_second_SelectedIndexChanged);
             // 
@@ -113,7 +114,7 @@
             this.listBox_db.FormattingEnabled = true;
             this.listBox_db.Location = new System.Drawing.Point(863, 114);
             this.listBox_db.Name = "listBox_db";
-            this.listBox_db.Size = new System.Drawing.Size(239, 368);
+            this.listBox_db.Size = new System.Drawing.Size(239, 394);
             this.listBox_db.TabIndex = 7;
             this.listBox_db.SelectedIndexChanged += new System.EventHandler(this.listBox_db_SelectedIndexChanged);
             // 
@@ -124,7 +125,7 @@
             this.listBox_xls.FormattingEnabled = true;
             this.listBox_xls.Location = new System.Drawing.Point(36, 114);
             this.listBox_xls.Name = "listBox_xls";
-            this.listBox_xls.Size = new System.Drawing.Size(361, 368);
+            this.listBox_xls.Size = new System.Drawing.Size(361, 394);
             this.listBox_xls.TabIndex = 10;
             this.listBox_xls.SelectedIndexChanged += new System.EventHandler(this.listBox_xls_SelectedIndexChanged);
             // 
@@ -132,7 +133,7 @@
             // 
             this.button_from_list_to_exel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button_from_list_to_exel.Enabled = false;
-            this.button_from_list_to_exel.Location = new System.Drawing.Point(416, 327);
+            this.button_from_list_to_exel.Location = new System.Drawing.Point(416, 334);
             this.button_from_list_to_exel.Name = "button_from_list_to_exel";
             this.button_from_list_to_exel.Size = new System.Drawing.Size(31, 125);
             this.button_from_list_to_exel.TabIndex = 11;
@@ -144,7 +145,7 @@
             // 
             this.button_from_list_to_db.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_from_list_to_db.Enabled = false;
-            this.button_from_list_to_db.Location = new System.Drawing.Point(814, 327);
+            this.button_from_list_to_db.Location = new System.Drawing.Point(814, 355);
             this.button_from_list_to_db.Name = "button_from_list_to_db";
             this.button_from_list_to_db.Size = new System.Drawing.Size(31, 125);
             this.button_from_list_to_db.TabIndex = 13;
@@ -156,7 +157,7 @@
             // 
             this.button_from_db_to_list.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_from_db_to_list.Enabled = false;
-            this.button_from_db_to_list.Location = new System.Drawing.Point(814, 183);
+            this.button_from_db_to_list.Location = new System.Drawing.Point(814, 172);
             this.button_from_db_to_list.Name = "button_from_db_to_list";
             this.button_from_db_to_list.Size = new System.Drawing.Size(31, 125);
             this.button_from_db_to_list.TabIndex = 12;
@@ -191,7 +192,7 @@
             this.button_create_ctl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_create_ctl.Enabled = false;
             this.button_create_ctl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_create_ctl.Location = new System.Drawing.Point(863, 495);
+            this.button_create_ctl.Location = new System.Drawing.Point(863, 533);
             this.button_create_ctl.Name = "button_create_ctl";
             this.button_create_ctl.Size = new System.Drawing.Size(239, 36);
             this.button_create_ctl.TabIndex = 16;
@@ -203,7 +204,7 @@
             // 
             this.textBox_file_name.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox_file_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_file_name.Location = new System.Drawing.Point(711, 619);
+            this.textBox_file_name.Location = new System.Drawing.Point(711, 683);
             this.textBox_file_name.Name = "textBox_file_name";
             this.textBox_file_name.Size = new System.Drawing.Size(110, 26);
             this.textBox_file_name.TabIndex = 17;
@@ -214,7 +215,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(36, 629);
+            this.textBox1.Location = new System.Drawing.Point(36, 693);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(361, 26);
             this.textBox1.TabIndex = 18;
@@ -247,12 +248,14 @@
             this.inputFileNameToolStripMenuItem.Name = "inputFileNameToolStripMenuItem";
             this.inputFileNameToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
             this.inputFileNameToolStripMenuItem.Text = "Input file name";
+            this.inputFileNameToolStripMenuItem.Click += new System.EventHandler(this.inputFileNameToolStripMenuItem_Click);
             // 
             // pathToResultFileToolStripMenuItem
             // 
             this.pathToResultFileToolStripMenuItem.Name = "pathToResultFileToolStripMenuItem";
             this.pathToResultFileToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
             this.pathToResultFileToolStripMenuItem.Text = "Path to result file";
+            this.pathToResultFileToolStripMenuItem.Click += new System.EventHandler(this.pathToResultFileToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -261,11 +264,20 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 25);
             this.aboutToolStripMenuItem.Text = "About";
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 585);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1143, 22);
+            this.statusStrip1.TabIndex = 23;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1143, 543);
+            this.ClientSize = new System.Drawing.Size(1143, 607);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox_file_name);
             this.Controls.Add(this.button_create_ctl);
@@ -316,6 +328,7 @@
         private System.Windows.Forms.ToolStripMenuItem inputFileNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pathToResultFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }
 

@@ -15,7 +15,8 @@ namespace WinFormsCsvCreator
 {
     public partial class Form1 : Form
     {
-        string _path;
+        string _pathToXlsFile;
+        string _pathToResultFile;
         int _columnCount;
         List<XlsData> _listXlsStr = new List<XlsData>();
         List<string> _startDbList = new List<string>();
@@ -25,8 +26,9 @@ namespace WinFormsCsvCreator
         {
             InitializeComponent();
             listBox_xls.Sorted = true;
+            _pathToResultFile = @"x:\upd\Control Creator\";
 
-            
+
 
             //this.TopMost = true;
             //this.FormBorderStyle = FormBorderStyle.None;
@@ -43,17 +45,17 @@ namespace WinFormsCsvCreator
                 string[] arr = item.Split('\\');
                 string path = arr[arr.Length - 1];
                 string name = path.Substring(0, path.Length - 4);
-                tableNameList.Add(name);                                
+                tableNameList.Add(name);
             }
             InitComboBox(tableNameList);
-            InitListBoxDB(comboBox_tables.SelectedItem.ToString());            
+            InitListBoxDB(comboBox_tables.SelectedItem.ToString());
         }
 
         void InitListBoxDB(string nableName)
         {
             listBox_db.Items.Clear();
             TableColumns table = new TableColumns(nableName);
-           // table.ListTable.Sort((col1, col2) => col1.Str.CompareTo(col2.Str)); // Sorting
+            // table.ListTable.Sort((col1, col2) => col1.Str.CompareTo(col2.Str)); // Sorting
             foreach (var item in table.ListTable)
             {
                 _startDbList.Add(item.Str);
@@ -74,7 +76,7 @@ namespace WinFormsCsvCreator
             {
                 comboBox_tables.SelectedItem = "import_clnt_example";
             }
-            
+
         }
 
         string GetPathToDefaultDir()
@@ -98,15 +100,15 @@ namespace WinFormsCsvCreator
 
             if (browsefile == DialogResult.OK)
             {
-                _path = openfile.FileName;
-                textBox_file_path.Text = _path; 
+                _pathToXlsFile = openfile.FileName;
+                textBox_file_path.Text = _pathToXlsFile;
 
                 Action action = () =>
                 {
                     Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
                     //????????? Why so many parameters???
                     //Microsoft.Office.Interop.Excel.Workbook excelBook = excelApp.Workbooks.Open(_path, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-                    Microsoft.Office.Interop.Excel.Workbook excelBook = excelApp.Workbooks.Open(_path);
+                    Microsoft.Office.Interop.Excel.Workbook excelBook = excelApp.Workbooks.Open(_pathToXlsFile);
                     Microsoft.Office.Interop.Excel.Worksheet excelSheet = (Microsoft.Office.Interop.Excel.Worksheet)excelBook.Worksheets.get_Item(1); ;
                     Microsoft.Office.Interop.Excel.Range excelRange = excelSheet.UsedRange;
                     _columnCount = excelRange.Columns.Count;
@@ -114,7 +116,7 @@ namespace WinFormsCsvCreator
                     string strCellData = "";
                     double douCellData;
                     int rowCnt = 0;
-                   // int colCnt = 0;
+                    // int colCnt = 0;
 
                     int countToName = 0; // will use to create new name of collun if sach name is exist already
 
@@ -122,16 +124,16 @@ namespace WinFormsCsvCreator
 
                     for (int colCnt = 1; colCnt <= _columnCount; colCnt++)
                     {
-                        string strColumn = "";                        
+                        string strColumn = "";
                         XlsData xd = new XlsData();
                         xd.Number = colCnt;
                         try
                         {
-                            strColumn = (string)(excelRange.Cells[1, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;                            
+                            strColumn = (string)(excelRange.Cells[1, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
                         }
                         catch (DuplicateNameException)
                         {
-                            strColumn = strColumn + "_" + (++countToName).ToString();                            
+                            strColumn = strColumn + "_" + (++countToName).ToString();
                         }
                         xd.ListStr.Add(strColumn);
                         _listXlsStr.Add(xd);
@@ -175,7 +177,7 @@ namespace WinFormsCsvCreator
                                 }
                             }
                             xd.ListStr.Add(strCellData);
-                        }                        
+                        }
                     }
 
                     FillListBox(listBox_xls);
@@ -213,7 +215,7 @@ namespace WinFormsCsvCreator
 
         private void listBox_xls_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             try
             {
                 if (listBox_xls.SelectedItem != null)
@@ -315,7 +317,7 @@ namespace WinFormsCsvCreator
         //}
 
 
-  
+
 
         private void listBox_first_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -379,10 +381,10 @@ namespace WinFormsCsvCreator
         {
             StringBuilder builder = CreateHead();
 
-            List <string> resultList = new List<string>();
+            List<string> resultList = new List<string>();
             int index;
             foreach (var item in listBox_first.Items)
-            {                
+            {
                 index = GetSelectedItemIndex(item.ToString());
                 //resultList.Add(_startDbList[index-1]);
                 builder.Append(_startDbList[index - 1]);
@@ -414,6 +416,23 @@ FIELDS TERMINATED BY ';'
 TRAILING NULLCOLS
 (");
             return builder;
+        }
+
+        private void inputFileNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pathToResultFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog opendir = new FolderBrowserDialog();
+
+            var browsefile = opendir.ShowDialog();
+
+            if (browsefile == DialogResult.OK)
+            {
+                _pathToResultFile = opendir.SelectedPath;
+            }
         }
     }
 }
