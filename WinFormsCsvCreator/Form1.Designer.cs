@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.textBox_file_path = new System.Windows.Forms.TextBox();
             this.button_open = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_xls_to_list = new System.Windows.Forms.Button();
             this.listBox_first = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox_db = new System.Windows.Forms.ListBox();
             this.listBox_xls = new System.Windows.Forms.ListBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button_from_list_to_exel = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -64,14 +64,16 @@
             this.button_open.UseVisualStyleBackColor = true;
             this.button_open.Click += new System.EventHandler(this.button_open_Click);
             // 
-            // button1
+            // button_xls_to_list
             // 
-            this.button1.Location = new System.Drawing.Point(416, 105);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(31, 125);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "->";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_xls_to_list.Enabled = false;
+            this.button_xls_to_list.Location = new System.Drawing.Point(416, 105);
+            this.button_xls_to_list.Name = "button_xls_to_list";
+            this.button_xls_to_list.Size = new System.Drawing.Size(31, 125);
+            this.button_xls_to_list.TabIndex = 3;
+            this.button_xls_to_list.Text = "->";
+            this.button_xls_to_list.UseVisualStyleBackColor = true;
+            this.button_xls_to_list.Click += new System.EventHandler(this.button1_Click);
             // 
             // listBox_first
             // 
@@ -114,15 +116,15 @@
             this.listBox_xls.TabIndex = 10;
             this.listBox_xls.SelectedIndexChanged += new System.EventHandler(this.listBox_xls_SelectedIndexChanged);
             // 
-            // button5
+            // button_from_list_to_exel
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button5.Location = new System.Drawing.Point(416, 273);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(31, 125);
-            this.button5.TabIndex = 11;
-            this.button5.Text = "<-";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button_from_list_to_exel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_from_list_to_exel.Location = new System.Drawing.Point(416, 273);
+            this.button_from_list_to_exel.Name = "button_from_list_to_exel";
+            this.button_from_list_to_exel.Size = new System.Drawing.Size(31, 125);
+            this.button_from_list_to_exel.TabIndex = 11;
+            this.button_from_list_to_exel.Text = "<-";
+            this.button_from_list_to_exel.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
@@ -174,12 +176,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button7);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button_from_list_to_exel);
             this.Controls.Add(this.listBox_xls);
             this.Controls.Add(this.listBox_db);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox_first);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_xls_to_list);
             this.Controls.Add(this.button_open);
             this.Controls.Add(this.textBox_file_path);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -194,12 +196,12 @@
 
         private System.Windows.Forms.TextBox textBox_file_path;
         private System.Windows.Forms.Button button_open;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_xls_to_list;
         private System.Windows.Forms.ListBox listBox_first;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ListBox listBox_db;
         private System.Windows.Forms.ListBox listBox_xls;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button_from_list_to_exel;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label label1;

@@ -199,15 +199,14 @@ namespace WinFormsCsvCreator
             
             try
             {
-                
-                string curStr = listBox_xls.SelectedItem.ToString();
-                string[] arr = curStr.Split(')');
-                int index = Convert.ToInt32(arr[0]);
-                XlsData item = _listStr.Where<XlsData>(c => c.Number == index).First();
-                _listStr.Remove(item);
-                listBox_xls.Items.Clear();
-                FillXslListBox();
-                listBox_first.Items.Add(curStr);
+                if (listBox_xls.SelectedItem != null)
+                {
+                    button_xls_to_list.Enabled = true;
+                }
+                else
+                {
+                    button_xls_to_list.Enabled = false;
+                }
             }
             catch (Exception Ex)
             {
@@ -218,7 +217,28 @@ namespace WinFormsCsvCreator
 
         private void comboBox_tables_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //if (listBox_xls.Items.Count > 0)
+            //{
+            //    comboBox_tables.Enabled = true;
+            //}
+            //else
+            //{
+            //    comboBox_tables.Enabled = false;
+            //}
             InitListBoxDB(comboBox_tables.SelectedItem.ToString());
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string curStr = listBox_xls.SelectedItem.ToString();
+            string[] arr = curStr.Split(')');
+            int index = Convert.ToInt32(arr[0]);
+            XlsData item = _listStr.Where<XlsData>(c => c.Number == index).First();
+            _listStr.Remove(item);
+            listBox_xls.Items.Clear();
+            FillXslListBox();
+            listBox_first.Items.Add(curStr);
+            button_xls_to_list.Enabled = false;
         }
     }
 }
