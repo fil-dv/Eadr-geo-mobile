@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,11 +17,12 @@ namespace WinFormsCsvCreator
     {
         string _path;
         int _columnCount;
-        List<XlsData> _listStr = new List<XlsData>();
+        List<XlsData> _listXlsStr = new List<XlsData>();
 
         public Form1()
         {
             InitializeComponent();
+            listBox_xls.Sorted = true;
             //this.TopMost = true;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.WindowState = FormWindowState.Maximized;
@@ -38,12 +40,8 @@ namespace WinFormsCsvCreator
                 string name = path.Substring(0, path.Length - 4);
                 tableNameList.Add(name);                                
             }
-
             InitComboBox(tableNameList);
-          // Thread.Sleep(100);
-            InitListBoxDB(comboBox_tables.SelectedItem.ToString());
-
-            
+            InitListBoxDB(comboBox_tables.SelectedItem.ToString());            
         }
 
         void InitListBoxDB(string nableName)
@@ -108,7 +106,7 @@ namespace WinFormsCsvCreator
 
                     int countToName = 0; // will use to create new name of collun if sach name is exist already
 
-                    _listStr.Capacity = _columnCount;
+                    _listXlsStr.Capacity = _columnCount;
 
                     for (int colCnt = 1; colCnt <= _columnCount; colCnt++)
                     {
@@ -124,7 +122,7 @@ namespace WinFormsCsvCreator
                             strColumn = strColumn + "_" + (++countToName).ToString();                            
                         }
                         xd.ListStr.Add(strColumn);
-                        _listStr.Add(xd);
+                        _listXlsStr.Add(xd);
                     }
 
                     /////
@@ -138,7 +136,7 @@ namespace WinFormsCsvCreator
                     {
                         for (int colCnt = 1; colCnt <= excelRange.Columns.Count; colCnt++)
                         {
-                            XlsData xd = _listStr.Where<XlsData>(n => n.Number == colCnt).First();
+                            XlsData xd = _listXlsStr.Where<XlsData>(n => n.Number == colCnt).First();
                             try
                             {
                                 Type type = (excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value.GetType();
@@ -168,7 +166,7 @@ namespace WinFormsCsvCreator
                         }                        
                     }
 
-                    FillXslListBox();
+                    FillListBox(listBox_xls);
 
                     try
                     {
@@ -186,11 +184,18 @@ namespace WinFormsCsvCreator
             }
         }
 
-        void FillXslListBox()
+        void FillListBox(ListBox lb)
         {
-            foreach (var item in _listStr)
+            foreach (var item in _listXlsStr)
             {
-                listBox_xls.Items.Add(String.Format("{0}) {1}", item.Number, item.ToString()));
+                if (item.Number < 10)
+                {
+                    lb.Items.Add(String.Format("0{0}) {1}", item.Number, item.ToString()));
+                }
+                //else if (item.Number >= 10 && item.Number < 100)
+                //{
+                //    lb.Items.Add(String.Format("0{0}) {1}", item.Number, item.ToString()));
+                //}
             }
         }
 
@@ -228,17 +233,126 @@ namespace WinFormsCsvCreator
             InitListBoxDB(comboBox_tables.SelectedItem.ToString());
         }
 
+        int GetSelectedItemIndex(string str)
+        {           
+            string[] arr = str.Split(')');
+            int index = Convert.ToInt32(arr[0]);
+            return index;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            string curStr = listBox_xls.SelectedItem.ToString();
-            string[] arr = curStr.Split(')');
-            int index = Convert.ToInt32(arr[0]);
-            XlsData item = _listStr.Where<XlsData>(c => c.Number == index).First();
-            _listStr.Remove(item);
-            listBox_xls.Items.Clear();
-            FillXslListBox();
-            listBox_first.Items.Add(curStr);
+            SendXlsItem(listBox_xls, listBox_first);
+
+            //string curStr = listBox_xls.SelectedItem.ToString();
+            //int index = GetSelectedItemIndex(curStr);
+            //XlsData item = _listStr.Where<XlsData>(c => c.Number == index).First();
+            //_listStr.Remove(item);
+            //listBox_xls.Items.Clear();
+            //FillXslListBox();
+            //listBox_first.Items.Add(curStr);
+            //button_xls_to_list.Enabled = false;
             button_xls_to_list.Enabled = false;
+        }
+
+        void SendXlsItem(ListBox sender, ListBox receiver)
+        {
+            string curStr = sender.SelectedItem.ToString();
+            //int ourIndex = GetSelectedItemIndex(curStr);
+            //XlsData item = _listXlsStr.Where<XlsData>(c => c.Number == ourIndex).First();
+            int index = sender.SelectedIndex;
+            sender.Items.RemoveAt(index);
+            //sender.Items.Clear();
+            //FillListBox(sender);
+            receiver.Items.Add(curStr);
+            //SortListBox(receiver);
+            //receiver.Sorted = true; // ((col1, col2) => col1.Str.CompareTo(col2.Str)); // Sorting
+
+            if (listBox_first.Items.Count == listBox_second.Items.Count)
+            {
+                button_create_ctl.Enabled = true;
+            }
+            else
+            {
+                button_create_ctl.Enabled = false;
+            }
+
+        }
+
+        //void SortListBox(ListBox lb)
+        //{
+        //    List<object> q = new List<object>();
+        //    foreach (object o in lb.Items)
+        //    { 
+        //        q.Add(o);
+        //    }
+        //    q.Sort((col1, col2) => col1.ToString().CompareTo(col2.ToString()));
+        //    lb.Items.Clear();
+        //    foreach (object o in q)
+        //    {
+        //        lb.Items.Add(o);
+        //    }        
+        //}
+
+
+  
+
+        private void listBox_first_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox_first.SelectedItem != null)
+            {
+                button_from_list_to_exel.Enabled = true;
+            }
+            else
+            {
+                button_from_list_to_exel.Enabled = false;
+            }
+        }
+
+        private void button_from_list_to_exel_Click(object sender, EventArgs e)
+        {
+            if (listBox_first.SelectedItem != null)
+            {
+                SendXlsItem(listBox_first, listBox_xls);
+                button_from_list_to_exel.Enabled = false;
+            }
+        }
+
+        private void listBox_db_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox_db.SelectedItem != null)
+            {
+                button_from_db_to_list.Enabled = true;
+            }
+            else
+            {
+                button_from_db_to_list.Enabled = false;
+            }
+        }
+
+        private void button_from_db_to_list_Click(object sender, EventArgs e)
+        {
+            SendXlsItem(listBox_db, listBox_second);
+            button_from_db_to_list.Enabled = false;
+        }
+
+        private void listBox_second_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox_second.SelectedItem != null)
+            {
+                button_from_list_to_db.Enabled = true;
+            }
+            else
+            {
+                button_from_list_to_db.Enabled = false;
+            }
+
+        }
+
+        private void button_from_list_to_db_Click(object sender, EventArgs e)
+        {
+            SendXlsItem(listBox_second, listBox_db);
+            button_from_db_to_list.Enabled = false;
         }
     }
 }
