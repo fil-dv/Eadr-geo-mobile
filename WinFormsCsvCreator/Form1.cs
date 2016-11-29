@@ -18,11 +18,16 @@ namespace WinFormsCsvCreator
         string _path;
         int _columnCount;
         List<XlsData> _listXlsStr = new List<XlsData>();
+        List<string> _startDbList = new List<string>();
+
 
         public Form1()
         {
             InitializeComponent();
             listBox_xls.Sorted = true;
+
+            
+
             //this.TopMost = true;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.WindowState = FormWindowState.Maximized;
@@ -51,6 +56,7 @@ namespace WinFormsCsvCreator
            // table.ListTable.Sort((col1, col2) => col1.Str.CompareTo(col2.Str)); // Sorting
             foreach (var item in table.ListTable)
             {
+                _startDbList.Add(item.Str);
                 listBox_db.Items.Add(item);
                 listBox_db.Enabled = false;
             }
@@ -71,8 +77,14 @@ namespace WinFormsCsvCreator
             
         }
 
+        string GetPathToDefaultDir()
+        {
+            return @"x:\upd\Control Creator\";
+        }
+
         List<string> FilesList()
         {
+            string pathToDefaultDir = GetPathToDefaultDir();
             return Directory.GetFiles(@"..\..\TableColumns\").ToList();  // path to files directory             
         }
 
@@ -234,10 +246,18 @@ namespace WinFormsCsvCreator
         }
 
         int GetSelectedItemIndex(string str)
-        {           
-            string[] arr = str.Split(')');
-            int index = Convert.ToInt32(arr[0]);
-            return index;
+        {
+            try
+            {
+                string[] arr = str.Split(')');
+                int index = Convert.ToInt32(arr[0]);
+                return index;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return -1;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -353,6 +373,47 @@ namespace WinFormsCsvCreator
         {
             SendXlsItem(listBox_second, listBox_db);
             button_from_db_to_list.Enabled = false;
+        }
+
+        private void button_create_ctl_Click(object sender, EventArgs e)
+        {
+            StringBuilder builder = CreateHead();
+
+            List <string> resultList = new List<string>();
+            int index;
+            foreach (var item in listBox_first.Items)
+            {                
+                index = GetSelectedItemIndex(item.ToString());
+                //resultList.Add(_startDbList[index-1]);
+                builder.Append(_startDbList[index - 1]);
+                builder.Append(",\n");
+            }
+            builder.Append("\n)");
+            string resultString = builder.ToString();
+
+
+        }
+
+        void CreateResultFile()
+        {
+
+        }
+
+        StringBuilder CreateHead()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(@"LOAD DATA
+INFILE '");
+            builder.Append(textBox_file_name.Text);
+            builder.Append(@"'
+REPLACE
+INTO TABLE ");
+            builder.Append(comboBox_tables.Text);
+            builder.Append(@"
+FIELDS TERMINATED BY ';'
+TRAILING NULLCOLS
+(");
+            return builder;
         }
     }
 }
