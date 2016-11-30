@@ -17,7 +17,8 @@ namespace WinFormsCsvCreator
 
         public TableColumns(string tableName)
         {
-            _fileName = @"..\..\TableColumns\" + tableName + ".txt";
+            // _fileName = @"..\..\TableColumns\" + tableName + ".txt";
+            _fileName = @"x:\upd\Control Creator\Tables\" + tableName + ".txt";
             _listTable = new List<TableItem>();
             _counter = 0;
             InitList();

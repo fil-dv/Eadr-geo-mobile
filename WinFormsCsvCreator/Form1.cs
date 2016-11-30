@@ -17,7 +17,10 @@ namespace WinFormsCsvCreator
     {
         string _pathToXlsFile;
         string _pathToResultFile;
+        string _inputFileName;
+        string _outputFileName;
         int _columnCount;
+        int _exlCount;
         List<XlsData> _listXlsStr = new List<XlsData>();
         List<string> _startDbList = new List<string>();
 
@@ -26,9 +29,12 @@ namespace WinFormsCsvCreator
         {
             InitializeComponent();
             listBox_xls.Sorted = true;
-            _pathToResultFile = @"x:\upd\Control Creator\";
+            _pathToResultFile = @"x:\upd\Control Creator";
+            _inputFileName = "imp.csv";
+            _outputFileName = "0_import.CTL";
 
-
+            toolStripStatusLabel_path_to_dir.Text = _pathToResultFile;
+            toolStripStatusLabel_input_file.Text = _inputFileName;
 
             //this.TopMost = true;
             //this.FormBorderStyle = FormBorderStyle.None;
@@ -87,7 +93,8 @@ namespace WinFormsCsvCreator
         List<string> FilesList()
         {
             string pathToDefaultDir = GetPathToDefaultDir();
-            return Directory.GetFiles(@"..\..\TableColumns\").ToList();  // path to files directory             
+            //return Directory.GetFiles(@"..\..\TableColumns\").ToList();  // path to files directory             
+            return Directory.GetFiles(@"x:\upd\Control Creator\Tables\").ToList();  // path to files directory             
         }
 
         private void button_open_Click(object sender, EventArgs e)
@@ -181,6 +188,8 @@ namespace WinFormsCsvCreator
                     }
 
                     FillListBox(listBox_xls);
+                    _exlCount = listBox_xls.Items.Count;
+
 
                     try
                     {
@@ -380,25 +389,49 @@ namespace WinFormsCsvCreator
         private void button_create_ctl_Click(object sender, EventArgs e)
         {
             StringBuilder builder = CreateHead();
-
             List<string> resultList = new List<string>();
-            int index;
+            for (int i = 0; i < _exlCount; ++i)
+            {
+                resultList.Add("empty");
+            }
+
+            int indexXls;
+            int indexDb = 0;
             foreach (var item in listBox_first.Items)
             {
-                index = GetSelectedItemIndex(item.ToString());
-                //resultList.Add(_startDbList[index-1]);
-                builder.Append(_startDbList[index - 1]);
-                builder.Append(",\n");
+                indexXls = GetSelectedItemIndex(item.ToString());
+                resultList[indexXls-1] = listBox_second.Items[indexDb++].ToString();                
             }
-            builder.Append("\n)");
+            int index = 40;
+            foreach (var item in resultList)
+            {
+                if (item == "empty")
+                {
+                    builder.Append("comment");
+                    builder.Append(index++);
+                }
+                else
+                {
+                    builder.Append(item);                    
+                }
+                builder.Append(@",
+");
+            }
+            builder.Remove(builder.Length - 3, 3);
+            builder.Append(@"
+)");
             string resultString = builder.ToString();
-
-
+            CreateResultFile(resultString);
         }
 
-        void CreateResultFile()
+        void CreateResultFile(string str)
         {
-
+            string path = _pathToResultFile + "\\" + _outputFileName;
+            System.IO.StreamWriter writer = new System.IO.StreamWriter(path); 
+            writer.Write(str); 
+            writer.Close(); 
+            writer.Dispose();
+            MessageBox.Show(path, "File created.");
         }
 
         StringBuilder CreateHead()
@@ -406,15 +439,16 @@ namespace WinFormsCsvCreator
             StringBuilder builder = new StringBuilder();
             builder.Append(@"LOAD DATA
 INFILE '");
-            builder.Append(textBox_file_name.Text);
+            builder.Append(_inputFileName.ToUpper());
             builder.Append(@"'
 REPLACE
 INTO TABLE ");
-            builder.Append(comboBox_tables.Text);
+            builder.Append(comboBox_tables.Text.ToUpper());
             builder.Append(@"
 FIELDS TERMINATED BY ';'
 TRAILING NULLCOLS
-(");
+(
+");
             return builder;
         }
 
@@ -432,6 +466,7 @@ TRAILING NULLCOLS
             if (browsefile == DialogResult.OK)
             {
                 _pathToResultFile = opendir.SelectedPath;
+                toolStripStatusLabel_path_to_dir.Text = _pathToResultFile;
             }
         }
     }

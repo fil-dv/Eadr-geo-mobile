@@ -1,0 +1,8 @@
+D:\Dima\!Шаг\EADR\WinFormsCsvCreator\bin\Release\WinFormsCsvCreator.exe.config
+D:\Dima\!Шаг\EADR\WinFormsCsvCreator\bin\Release\WinFormsCsvCreator.exe
+D:\Dima\!Шаг\EADR\WinFormsCsvCreator\bin\Release\WinFormsCsvCreator.pdb
+D:\Dima\!Шаг\EADR\WinFormsCsvCreator\obj\Release\WinFormsCsvCreator.Form1.resources
+D:\Dima\!Шаг\EADR\WinFormsCsvCreator\obj\Release\WinFormsCsvCreator.Properties.Resources.resources
+D:\Dima\!Шаг\EADR\WinFormsCsvCreator\obj\Release\WinFormsCsvCreator.csproj.GenerateResource.Cache
+D:\Dima\!Шаг\EADR\WinFormsCsvCreator\obj\Release\WinFormsCsvCreator.exe
+D:\Dima\!Шаг\EADR\WinFormsCsvCreator\obj\Release\WinFormsCsvCreator.pdb
