@@ -215,16 +215,15 @@ namespace WinFormsCsvCreator
                 {
                     lb.Items.Add(String.Format("0{0}) {1}", item.Number, item.ToString()));
                 }
-                //else if (item.Number >= 10 && item.Number < 100)
-                //{
-                //    lb.Items.Add(String.Format("0{0}) {1}", item.Number, item.ToString()));
-                //}
+                else 
+                {
+                    lb.Items.Add(String.Format("{0}) {1}", item.Number, item.ToString()));
+                }
             }
         }
 
         private void listBox_xls_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             try
             {
                 if (listBox_xls.SelectedItem != null)

@@ -1,0 +1,12 @@
+D:\Dima\!Шаг\EADR\ScanDocsToDb\bin\Debug\ScanDocsToDb.exe.config
+D:\Dima\!Шаг\EADR\ScanDocsToDb\bin\Debug\ScanDocsToDb.exe
+D:\Dima\!Шаг\EADR\ScanDocsToDb\bin\Debug\ScanDocsToDb.pdb
+D:\Dima\!Шаг\EADR\ScanDocsToDb\obj\Debug\ScanDocsToDb.csprojResolveAssemblyReference.cache
+D:\Dima\!Шаг\EADR\ScanDocsToDb\obj\Debug\ScanDocsToDb.Form1.resources
+D:\Dima\!Шаг\EADR\ScanDocsToDb\obj\Debug\ScanDocsToDb.Properties.Resources.resources
+D:\Dima\!Шаг\EADR\ScanDocsToDb\obj\Debug\ScanDocsToDb.csproj.GenerateResource.Cache
+D:\Dima\!Шаг\EADR\ScanDocsToDb\obj\Debug\ScanDocsToDb.exe
+D:\Dima\!Шаг\EADR\ScanDocsToDb\obj\Debug\ScanDocsToDb.pdb
+D:\Dima\!Шаг\EADR\ScanDocsToDb\bin\Debug\DbLayer.dll
+D:\Dima\!Шаг\EADR\ScanDocsToDb\bin\Debug\DbLayer.pdb
+D:\Dima\!Шаг\EADR\ScanDocsToDb\bin\Debug\Oracle.ManagedDataAccess.dll

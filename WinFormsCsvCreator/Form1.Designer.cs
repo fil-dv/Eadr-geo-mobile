@@ -130,6 +130,7 @@
             this.listBox_xls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.listBox_xls.FormattingEnabled = true;
+            this.listBox_xls.HorizontalScrollbar = true;
             this.listBox_xls.Location = new System.Drawing.Point(36, 114);
             this.listBox_xls.Name = "listBox_xls";
             this.listBox_xls.Size = new System.Drawing.Size(361, 394);

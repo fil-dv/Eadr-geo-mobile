@@ -1,0 +1,13 @@
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\DbLayer.dll.config
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\DbLayer.dll
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\DbLayer.pdb
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\EntityFramework.dll
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\Oracle.ManagedDataAccess.dll
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\Oracle.ManagedDataAccess.EntityFramework.dll
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\EntityFramework.xml
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\obj\Debug\DbLayer.csprojResolveAssemblyReference.cache
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\obj\Debug\DbLayer.dll
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\obj\Debug\DbLayer.pdb
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\Oracle.DataAccess.dll
