@@ -16,6 +16,7 @@ namespace ScanDocsToDb
 {
     public partial class Form1 : Form
     {
+        const string _tableName = "DIMA_IMP";
         string _pathToFolder = "";
         string _renamedPath = ""; // @"d:\!!!\Renamed";
         string _restructedPath = "";  //@"d:\!!!\Restructed";
@@ -153,13 +154,17 @@ namespace ScanDocsToDb
             try
             {
                 connect.OpenConnect();
-                //string sql = "select p.dogovor_id from suvd.projects p where p.business_n = 1532569";
-                //string sql = "delete from dima_imp";
-                //connect.DoCommand(sql);
+                string sql = "delete from " + _tableName;
+                connect.DoCommand(sql);
 
-                //QueryBuilder qb = new QueryBuilder(QueryType.Insert);
-                //sql = qb.BuildInsert("DIMA_IMP", new InsertValues { comment1 = "111", comment2 = "222", comment3= "333", inn = 444});
-                //connect.DoCommand(sql);
+                QueryBuilder qb = new QueryBuilder(QueryType.Insert);
+                foreach (var item in _listValuesToDB)
+                {
+                    sql = qb.BuildInsert(_tableName, item);
+                    connect.DoCommand(sql);
+                }
+                MessageBox.Show(String.Format("Записи залиты в таблицу {0} ({1} шт.)", _tableName, _listValuesToDB.Count.ToString()));
+                DefaultSettings();        
             }
             catch (Exception ex)
             {
@@ -167,11 +172,17 @@ namespace ScanDocsToDb
             }
         }
 
+        void DefaultSettings()
+        {
+            textBox_path.Text = "";
+            button_start.Enabled = false;
+            button_rename.Enabled = false;
+        }
+
         private void button_rename_Click(object sender, EventArgs e)
         {
             PathPreparer();
             RemoveThumbs();
-            GetDogovorIdList(); 
             MessageBox.Show("Готово!");
             button_start.Enabled = true;
         }
