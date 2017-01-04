@@ -17,16 +17,17 @@ namespace ScanDocsToDb
     public partial class Form1 : Form
     {
         string _pathToFolder = "";
-        string _renamedPath = @"d:\!!!\Renamed";
-        string _restructedPath = @"d:\!!!\Restructed";
+        string _renamedPath = ""; // @"d:\!!!\Renamed";
+        string _restructedPath = "";  //@"d:\!!!\Restructed";
 
         List<string> _addList = new List<string>();
         List<string> _pathList = new List<string>();
+        List<InsertValues> _listValuesToDB = new List<InsertValues>();
 
         public Form1()
         {
             InitializeComponent();
-            //button_start.Enabled = false;
+            button_start.Enabled = false;
             button_rename.Enabled = false;
         }
 
@@ -48,7 +49,6 @@ namespace ScanDocsToDb
         {
             if (textBox_path.Text.Length > 0)
             {
-                button_start.Enabled = true;
                 button_rename.Enabled = true;
             }
             else
@@ -154,12 +154,12 @@ namespace ScanDocsToDb
             {
                 connect.OpenConnect();
                 //string sql = "select p.dogovor_id from suvd.projects p where p.business_n = 1532569";
-                string sql = "delete from dima_imp";
+                //string sql = "delete from dima_imp";
                 //connect.DoCommand(sql);
 
-                QueryBuilder qb = new QueryBuilder(QueryType.Insert);
-                sql = qb.BuildInsert("DIMA_IMP", new InsertValues { comment1 = "111", comment2 = "222", comment3= "333", inn = 444});
-                connect.DoCommand(sql);
+                //QueryBuilder qb = new QueryBuilder(QueryType.Insert);
+                //sql = qb.BuildInsert("DIMA_IMP", new InsertValues { comment1 = "111", comment2 = "222", comment3= "333", inn = 444});
+                //connect.DoCommand(sql);
             }
             catch (Exception ex)
             {
@@ -172,13 +172,14 @@ namespace ScanDocsToDb
             PathPreparer();
             RemoveThumbs();
             GetDogovorIdList(); 
-            MessageBox.Show("Files renamed!");
+            MessageBox.Show("Готово!");
+            button_start.Enabled = true;
         }
 
         void GetDogovorIdList()
         {
-            // _restructedPath = _pathToFolder.Substring(0, _pathToFolder.LastIndexOf('\\'));
-            // _restructedPath = _restructedPath + @"\Restructed";
+            _restructedPath = _pathToFolder.Substring(0, _pathToFolder.LastIndexOf('\\'));
+            _restructedPath = _restructedPath + @"\Restructed";
 
             DirectoryInfo dirInfo = new DirectoryInfo(_renamedPath);
             Regex rgx = new Regex(@"\d{9}");
@@ -212,6 +213,7 @@ namespace ScanDocsToDb
 
         void FileMover()
         {
+            int count = 0;
             DirectoryInfo dirInfo = new DirectoryInfo(_renamedPath);            
             foreach (FileInfo file in dirInfo.GetFiles())
             {
@@ -221,10 +223,24 @@ namespace ScanDocsToDb
                 {
                     Match match = rgx.Match(file.Name);
                     string matchStr = match.Value;
-                    string destPath = _restructedPath + "\\" + matchStr + "\\" + file.Name;
+                    string cutFileName = file.Name.Substring(file.Name.LastIndexOf('#')).TrimStart(new char[] { '#', ' '});
+                    string destPath = _restructedPath + "\\" + matchStr + "\\" + cutFileName;
+                    while (File.Exists(destPath))
+                    {
+                        string bit = "_";
+                        cutFileName = bit + cutFileName;
+                        destPath = _restructedPath + "\\" + matchStr + "\\" + cutFileName;
+                        bit = bit  +  "_";
+                        count++;
+                    }
+                    InsertValues insertValue = new InsertValues();
+                    insertValue.Dogovor_ID = matchStr;
+                    insertValue.comment1 = matchStr + "\\" + cutFileName;
+                    _listValuesToDB.Add(insertValue);
                     File.Move(soursPath, destPath);
                 }
             }
+            MessageBox.Show(String.Format("Количество дублей имен файлов = {0}", count.ToString()));
         }
 
         void RemoveThumbs()
@@ -239,11 +255,12 @@ namespace ScanDocsToDb
                     file.Delete();
                 }               
             }
+            GetDogovorIdList();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_cancel_Click(object sender, EventArgs e)
         {
-            GetDogovorIdList();
+            this.Close();
         }
     }
 }

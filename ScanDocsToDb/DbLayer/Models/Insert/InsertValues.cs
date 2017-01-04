@@ -8,9 +8,7 @@ namespace DbLayer.Models.Insert
 {
     public class InsertValues
     {
-        public string comment1 { get; set; }
-        public string comment2 { get; set; }
-        public string comment3 { get; set; }
-        public int inn { get; set; }
+        public string Dogovor_ID { get; set; }
+        public string comment1 { get; set; }        
     }
 }
