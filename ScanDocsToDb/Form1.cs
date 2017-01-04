@@ -17,7 +17,9 @@ namespace ScanDocsToDb
     public partial class Form1 : Form
     {
         string _pathToFolder = "";
-        string _destPath = "";
+        string _renamedPath = @"d:\!!!\Renamed";
+        string _restructedPath = @"d:\!!!\Restructed";
+
         List<string> _addList = new List<string>();
         List<string> _pathList = new List<string>();
 
@@ -58,15 +60,15 @@ namespace ScanDocsToDb
 
         void PathPreparer()
         {
-            _destPath = _pathToFolder.Substring(0, _pathToFolder.LastIndexOf('\\'));
-            _destPath = _destPath + @"\Renamed"; 
-            if (!Directory.Exists(_destPath))
+            _renamedPath = _pathToFolder.Substring(0, _pathToFolder.LastIndexOf('\\'));
+            _renamedPath = _renamedPath + @"\Renamed"; 
+            if (!Directory.Exists(_renamedPath))
             {
-                Directory.CreateDirectory(_destPath);
+                Directory.CreateDirectory(_renamedPath);
             }
             else
             {
-                DirectoryInfo di = new DirectoryInfo(_destPath);
+                DirectoryInfo di = new DirectoryInfo(_renamedPath);
                 foreach (FileInfo file in di.GetFiles())
                 {
                     file.Delete();
@@ -101,7 +103,7 @@ namespace ScanDocsToDb
 
             foreach (FileInfo file in dirInfo.GetFiles())
             {
-                string newFileName = _destPath + '\\' + GetDirNames() + file.Name;
+                string newFileName = _renamedPath + '\\' + GetDirNames() + file.Name;
                 File.Move(file.FullName, newFileName);               
             }
 
@@ -169,13 +171,65 @@ namespace ScanDocsToDb
         {
             PathPreparer();
             RemoveThumbs();
+            GetDogovorIdList(); 
             MessageBox.Show("Files renamed!");
+        }
+
+        void GetDogovorIdList()
+        {
+            // _restructedPath = _pathToFolder.Substring(0, _pathToFolder.LastIndexOf('\\'));
+            // _restructedPath = _restructedPath + @"\Restructed";
+
+            DirectoryInfo dirInfo = new DirectoryInfo(_renamedPath);
+            Regex rgx = new Regex(@"\d{9}");
+            List<string> matchList = new List<string>();
+            foreach (FileInfo file in dirInfo.GetFiles())
+            {
+                if (rgx.IsMatch(file.Name))
+                {
+                    Match match = rgx.Match(file.Name);
+                    string matchStr = match.Value;
+                    if (!matchList.Contains(matchStr))
+                    {
+                        matchList.Add(matchStr);
+                    }
+                }
+            }
+            CreateNewFolders(matchList);
+        }
+
+        void CreateNewFolders(List<string> list)
+        {
+            foreach (var item in list)
+            {
+                if (!Directory.Exists(_restructedPath + "\\" + item))
+                {
+                    Directory.CreateDirectory(_restructedPath + "\\" + item);
+                }
+            }
+            FileMover();
+        }
+
+        void FileMover()
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(_renamedPath);            
+            foreach (FileInfo file in dirInfo.GetFiles())
+            {
+                string soursPath = file.FullName;                
+                Regex rgx = new Regex(@"\d{9}");
+                if (rgx.IsMatch(file.Name))
+                {
+                    Match match = rgx.Match(file.Name);
+                    string matchStr = match.Value;
+                    string destPath = _restructedPath + "\\" + matchStr + "\\" + file.Name;
+                    File.Move(soursPath, destPath);
+                }
+            }
         }
 
         void RemoveThumbs()
         {
-            int i = 0;
-            DirectoryInfo dirInfo = new DirectoryInfo(_destPath);
+            DirectoryInfo dirInfo = new DirectoryInfo(_renamedPath);
             Regex rgx = new Regex(@"Thumbs");
             foreach (FileInfo file in dirInfo.GetFiles())
             {
@@ -183,9 +237,13 @@ namespace ScanDocsToDb
                 if (file.Extension == ".db"  && isThumbs)
                 {
                     file.Delete();
-                    i++;
                 }               
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GetDogovorIdList();
         }
     }
 }
