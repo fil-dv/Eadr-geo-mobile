@@ -10,3 +10,4 @@ D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\EntityFramework.SqlServer.xm
 D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\obj\Debug\DbLayer.dll
 D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\obj\Debug\DbLayer.pdb
 D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\bin\Debug\Oracle.DataAccess.dll
+D:\Dima\!Шаг\EADR\ScanDocsToDb\DbLayer\obj\Debug\DbLayer.csprojResolveAssemblyReference.cache
