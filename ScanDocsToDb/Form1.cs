@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -236,6 +237,7 @@ namespace ScanDocsToDb
                     string matchStr = match.Value;
                     string cutFileName = file.Name.Substring(file.Name.LastIndexOf('#')).TrimStart(new char[] { '#', ' '});
                     string destPath = _restructedPath + "\\" + matchStr + "\\" + cutFileName;
+                    
                     while (File.Exists(destPath))
                     {
                         string bit = "_";
@@ -243,15 +245,99 @@ namespace ScanDocsToDb
                         destPath = _restructedPath + "\\" + matchStr + "\\" + cutFileName;
                         bit = bit  +  "_";
                         count++;
-                    }
-                    InsertValues insertValue = new InsertValues();
-                    insertValue.Dogovor_ID = matchStr;
-                    insertValue.comment1 = matchStr + "\\" + cutFileName;
-                    _listValuesToDB.Add(insertValue);
+                    }              
+
                     File.Move(soursPath, destPath);
                 }
             }
-            MessageBox.Show(String.Format("Количество дублей имен файлов = {0}", count.ToString()));
+            //MessageBox.Show(String.Format("Количество дублей имен файлов = {0}", count.ToString()));
+            DeleteDoubleFiles();
+        }
+
+        byte[] GetFileCheckSum(string filename)
+        {
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(filename))
+                {
+                    return md5.ComputeHash(stream);
+                }
+            }
+        }
+
+        void DeleteDoubleFiles()
+        {
+            int counter = 0;
+            DirectoryInfo di = new DirectoryInfo(_restructedPath);
+            foreach (DirectoryInfo dirInfo in di.GetDirectories())
+            {
+                foreach (FileInfo file in dirInfo.GetFiles())
+                {
+                    if (file.Name.Substring(0, 1) == "_")
+                    {
+                        CheckDoubles(dirInfo, file, ref counter);
+                    }
+                }
+            }
+            int res = counter;
+            ReplaceUkrSymbols();
+            InitDataForDB();
+        }
+
+        void ReplaceUkrSymbols()
+        {
+            DirectoryInfo di = new DirectoryInfo(_restructedPath);
+            foreach (DirectoryInfo dirInfo in di.GetDirectories())
+            {
+                foreach (FileInfo file in dirInfo.GetFiles())
+                {
+                    if (file.Name.ToLower().Contains("i"))
+                    {
+                        string newName = file.Name.Replace('і', '_');                        
+                        File.Move(file.FullName, dirInfo.FullName + '\\' + newName);
+                    }
+                    //if (file.Name.Contains('І'))
+                    //{
+                    //    string newName = file.Name.Replace('І', '_');
+                    //    File.Move(file.FullName, dirInfo.FullName + '\\' + newName);
+
+                    //}
+                }
+            }
+        }
+
+        void InitDataForDB()
+        {
+            int counter = 0;
+            DirectoryInfo di = new DirectoryInfo(_restructedPath);
+
+            foreach (DirectoryInfo dirInfo in di.GetDirectories())
+            {
+                foreach (FileInfo file in dirInfo.GetFiles())
+                {
+                    InsertValues insertValue = new InsertValues();
+                    insertValue.Dogovor_ID = dirInfo.Name;
+                    insertValue.comment1 = dirInfo.Name + "\\" + file.Name;
+                    insertValue.comment10 = file.Length;
+                    _listValuesToDB.Add(insertValue);
+                    counter++;
+                }
+            }
+        }
+        
+        void CheckDoubles(DirectoryInfo dirInfo, FileInfo currentFile, ref int counter)
+        {
+            foreach (var item in dirInfo.GetFiles())
+            {
+                if (item.FullName != currentFile.FullName)
+                {
+                    if (item.Length == currentFile.Length)
+                    {
+                        File.Delete(currentFile.FullName);
+                        counter++;                     
+                    }
+                }
+            }
         }
 
         void RemoveThumbs()
