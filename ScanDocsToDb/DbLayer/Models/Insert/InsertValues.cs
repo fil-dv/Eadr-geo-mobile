@@ -8,9 +8,10 @@ namespace DbLayer.Models.Insert
 {
     public class InsertValues
     {
-        public string Dogovor_ID { get; set; }
-        public string comment1 { get; set; }   
-        public double comment10 { get; set; }
-
+        public string Dogovor_ID { get; set; } // номер договора
+        public string comment1 { get; set; } // Полное имя (для коммента)
+        public string comment2 { get; set; } // Полный путь
+        public string comment3 { get; set; } // Имя (сиквенс)
+        public double comment4 { get; set; }
     }
 }

@@ -21,6 +21,8 @@ namespace ScanDocsToDb
         string _pathToFolder = "";
         string _renamedPath = ""; // @"d:\!!!\Renamed";
         string _restructedPath = "";  //@"d:\!!!\Restructed";
+        bool _isReadyOpenFile = false;
+        bool _isReadyStoragePath = false;
 
         List<string> _addList = new List<string>();
         List<string> _pathList = new List<string>();
@@ -49,14 +51,22 @@ namespace ScanDocsToDb
 
         private void textBox_path_TextChanged(object sender, EventArgs e)
         {
-            if (textBox_path.Text.Length > 0)
+            if (textBox_path.Text.Length > 0 )
             {
-                button_rename.Enabled = true;
+                _isReadyOpenFile = true;
+                if (_isReadyStoragePath)
+                {
+                    button_rename.Enabled = true;
+                }
+                else
+                {
+                    button_start.Enabled = false;
+                    button_rename.Enabled = false;
+                }
             }
             else
-            {
-                button_start.Enabled = false;
-                button_rename.Enabled = false;
+            {                
+                _isReadyOpenFile = false;
             }
         }
 
@@ -225,7 +235,7 @@ namespace ScanDocsToDb
 
         void FileMover()
         {
-            int count = 0;
+            //int count = 0;
             DirectoryInfo dirInfo = new DirectoryInfo(_renamedPath);            
             foreach (FileInfo file in dirInfo.GetFiles())
             {
@@ -240,11 +250,11 @@ namespace ScanDocsToDb
                     
                     while (File.Exists(destPath))
                     {
-                        string bit = "_";
+                        string bit = "__|__";
                         cutFileName = bit + cutFileName;
                         destPath = _restructedPath + "\\" + matchStr + "\\" + cutFileName;
-                        bit = bit  +  "_";
-                        count++;
+                        bit = bit + bit;
+                       //count++;
                     }              
 
                     File.Move(soursPath, destPath);
@@ -254,16 +264,16 @@ namespace ScanDocsToDb
             DeleteDoubleFiles();
         }
 
-        byte[] GetFileCheckSum(string filename)
-        {
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(filename))
-                {
-                    return md5.ComputeHash(stream);
-                }
-            }
-        }
+        //byte[] GetFileCheckSum(string filename)
+        //{
+        //    using (var md5 = MD5.Create())
+        //    {
+        //        using (var stream = File.OpenRead(filename))
+        //        {
+        //            return md5.ComputeHash(stream);
+        //        }
+        //    }
+        //}
 
         void DeleteDoubleFiles()
         {
@@ -280,64 +290,71 @@ namespace ScanDocsToDb
                 }
             }
             int res = counter;
-            ReplaceUkrSymbols();
+           // ReplaceUkrSymbols();
             InitDataForDB();
         }
 
-        string Translit(string str)
-        {
-            string[] lat_up = { "A", "B", "V", "G", "D", "E", "Yo", "Zh", "Z", "I", "Y", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "F", "Kh", "Ts", "Ch", "Sh", "Shch", "\"", "Y", "'", "E", "Yu", "Ya" };
-            string[] lat_low = { "a", "b", "v", "g", "d", "e", "yo", "zh", "z", "i", "y", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f", "kh", "ts", "ch", "sh", "shch", "\"", "y", "'", "e", "yu", "ya" };
-            string[] rus_up = { "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я" };
-            string[] rus_low = { "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я"};
-            for (int i = 0; i <= 32; i++)
-            {
-                str = str.Replace(rus_up[i], lat_up[i]);
-                str = str.Replace(rus_low[i], lat_low[i]);
-                str = str.Replace('і', '_');
-                str = str.Replace('І', '_');
-                str = str.Replace('ї', '_');
-                str = str.Replace('Ї', '_');
-                str = str.Replace('є', '_');
-                str = str.Replace('Є', '_');
-                str = str.Replace(' ', '_');
-                str = str.Replace(',', '_');
-                str = str.Replace('\'', '_');                
-            }
-            return str;
-        }
+        //string Translit(string str)
+        //{
+        //    string[] lat_up = { "A", "B", "V", "G", "D", "E", "Yo", "Zh", "Z", "I", "Y", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "F", "Kh", "Ts", "Ch", "Sh", "Shch", "\"", "Y", "'", "E", "Yu", "Ya" };
+        //    string[] lat_low = { "a", "b", "v", "g", "d", "e", "yo", "zh", "z", "i", "y", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f", "kh", "ts", "ch", "sh", "shch", "\"", "y", "'", "e", "yu", "ya" };
+        //    string[] rus_up = { "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я" };
+        //    string[] rus_low = { "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я"};
+        //    for (int i = 0; i <= 32; i++)
+        //    {
+        //        str = str.Replace(rus_up[i], lat_up[i]);
+        //        str = str.Replace(rus_low[i], lat_low[i]);
+        //        str = str.Replace('і', '_');
+        //        str = str.Replace('І', '_');
+        //        str = str.Replace('ї', '_');
+        //        str = str.Replace('Ї', '_');
+        //        str = str.Replace('є', '_');
+        //        str = str.Replace('Є', '_');
+        //        str = str.Replace(' ', '_');
+        //        str = str.Replace(',', '_');
+        //        str = str.Replace('\'', '_');                
+        //    }
+        //    return str;
+        //}
 
-        void ReplaceUkrSymbols()
-        {
-            DirectoryInfo di = new DirectoryInfo(_restructedPath);
-            foreach (DirectoryInfo dirInfo in di.GetDirectories())
-            {
-                foreach (FileInfo file in dirInfo.GetFiles())
-                {
-                    string translitStr = Translit(file.Name);
-                    File.Move(file.FullName, dirInfo.FullName + '\\' + translitStr);
-                }
-            }
-        }
+        //void ReplaceUkrSymbols()
+        //{
+        //    DirectoryInfo di = new DirectoryInfo(_restructedPath);
+        //    foreach (DirectoryInfo dirInfo in di.GetDirectories())
+        //    {
+        //        foreach (FileInfo file in dirInfo.GetFiles())
+        //        {
+        //            string translitStr = Translit(file.Name);
+        //            File.Move(file.FullName, dirInfo.FullName + '\\' + translitStr);
+        //        }
+        //    }
+        //}
 
         void InitDataForDB()
         {
             int counter = 0;
             DirectoryInfo di = new DirectoryInfo(_restructedPath);
-
+            int counterAsFileName = 0;
+            string ext = "";
             foreach (DirectoryInfo dirInfo in di.GetDirectories())
             {
                 foreach (FileInfo file in dirInfo.GetFiles())
                 {
+                    ext = file.Extension;
                     InsertValues insertValue = new InsertValues();
                     insertValue.Dogovor_ID = dirInfo.Name;
-                    insertValue.comment1 = dirInfo.Name + "\\" + file.Name;
-                    insertValue.comment10 = file.Length;
+                    insertValue.comment1 = file.Name;
+                    insertValue.comment2 = textBox1.Text + "/" + dirInfo.Name + "/" + (++counterAsFileName) + ext; 
+                    insertValue.comment3 = counterAsFileName + ext;
+                    insertValue.comment4 = file.Length;
                     _listValuesToDB.Add(insertValue);
                     counter++;
+
+                    string newName = counterAsFileName + ext;
+                    File.Move(file.FullName, dirInfo.FullName + '\\' + newName);
                 }
-                
             }
+            int stop = counter;
         }
         
         void CheckDoubles(DirectoryInfo dirInfo, FileInfo currentFile, ref int counter)
@@ -373,6 +390,27 @@ namespace ScanDocsToDb
         private void button_cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (Char.IsNumber(textBox1.Text[textBox1.Text.Length - 1]))
+            {
+                _isReadyStoragePath = true;
+                if (_isReadyOpenFile)
+                {
+                    button_rename.Enabled = true;
+                }
+                else
+                {
+                    button_rename.Enabled = false;
+                }                   
+            }
+            else
+            {
+                button_rename.Enabled = false;
+                _isReadyStoragePath = false;
+            }
         }
     }
 }
